@@ -1,6 +1,5 @@
 package com.servsoft;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,29 +12,32 @@ public class Server implements Runnable{
 
     private ArrayList<ConnectionHandler> connections;
     private ServerSocket server;
-    private boolean done;
     private ExecutorService pool;
 
     public Server() {
-        done = false;
         connections = new ArrayList<>();
     }
+
+    public static void main(String[] args) {
+            Server server = new Server();
+            server.run();
+        }
 
     @Override
 
     //establishes server
     public void run() {
         try{
-        server = new ServerSocket(0211);
+        server = new ServerSocket(2211);
         pool = Executors.newCachedThreadPool();
-        while (!done) {
+        while (true) {
            Socket client = server.accept();
            ConnectionHandler handler = new ConnectionHandler(client);
            connections.add(handler);
            pool.execute(handler);
            }
-        } catch (IOException e) {
-            shutdown();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
@@ -47,17 +49,6 @@ public class Server implements Runnable{
         }
     }
 
-    public void shutdown() {
-    try {
-        done = true;
-        if (!server.isClosed()) {
-           server.close();
-       }
-        for (ConnectionHandler ch : connections) {
-            ch.shutdown();
-       }
-    } catch (IOException e){}
-    }
 
     //handles client connections
     class ConnectionHandler implements Runnable{
@@ -87,7 +78,7 @@ public class Server implements Runnable{
                         broadcast(nickname + ": " + message);
                     }
             } catch(Exception e) {
-                shutdown();
+                e.printStackTrace();
             }
 
         }
@@ -96,19 +87,5 @@ public class Server implements Runnable{
             out.println(message);
         }
 
-        public void shutdown() {
-            try {
-            in.close();
-            out.close(); 
-            if (!client.isClosed()) {
-                client.close();
-             }
-            } catch (IOException e) {}
-        }
-
-        public static void main(String[] args) {
-            Server server = new Server();
-            server.run();
-        }
     }
 }
