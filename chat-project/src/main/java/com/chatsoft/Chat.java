@@ -10,12 +10,13 @@ public class Chat implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
 
+    //establishes connection to the server and user
     @Override
     public void run() {
         try{
-            Socket client = new Socket("127.0.0.1", 2211);
-            out = new PrintWriter(client.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            Socket user = new Socket("127.0.0.1", 2211);
+            out = new PrintWriter(user.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(user.getInputStream()));
             InputHandler inHandler = new InputHandler(); 
             Thread t = new Thread(inHandler);
             t.start();
@@ -33,6 +34,7 @@ public class Chat implements Runnable {
     
     class InputHandler implements Runnable {
 
+    //reads user
     @Override
     public void run() {
         try{
@@ -51,7 +53,7 @@ public class Chat implements Runnable {
     }
 
     public static void main(String[] args) {
-        Chat client = new Chat();
-        client.run();
+        Chat chatClient = new Chat();
+        chatClient.run();
     }
 }

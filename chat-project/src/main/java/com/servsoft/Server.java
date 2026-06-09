@@ -1,5 +1,6 @@
 package com.servsoft;
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.io.PrintWriter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class Server implements Runnable{
 
@@ -18,10 +21,11 @@ public class Server implements Runnable{
         connections = new ArrayList<>();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {   
             Server server = new Server();
             server.run();
         }
+    
 
     @Override
 
@@ -37,7 +41,7 @@ public class Server implements Runnable{
            pool.execute(handler);
            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error. Server could not be established.");
         }
     }
     
@@ -53,33 +57,40 @@ public class Server implements Runnable{
     //handles client connections
     class ConnectionHandler implements Runnable{
 
-        private Socket client;
+        private Socket user;
         private BufferedReader in;
         private PrintWriter out;
-        private String nickname;
+        private String nick;
         
-        public ConnectionHandler(Socket client) {
-            this.client = client;
+        public ConnectionHandler(Socket user) {
+            this.user = user;
         }
 
         @Override
 
-        // handles entering nickname and messaging
+        // handles entering nickname, messaging and logging messages to a .json file
         public void run() {
             try{
-                out = new PrintWriter(client.getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                FileWriter writer = new FileWriter("ChatLog.json", true);
+                out = new PrintWriter(user.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(user.getInputStream()));
                 out.println("Welcome to the chat room, please enter a nickname: ");
-                nickname = in.readLine();
-                System.out.println(nickname + " connected!");
-                broadcast(nickname + " joined the chat!");
+                nick = in.readLine();
+                System.out.println(nick + " connected!");
+                broadcast(nick + " joined the chat!");
                 String message;
                 while ((message = in.readLine()) != null) {
-                        broadcast(nickname + ": " + message);
+                        LocalDateTime dateTime = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                        String time = dateTime.format(formatter);
+                        broadcast("[" + time + "]" + " " + nick + ": " + message);
+                        writer.write("[" + time + "]" + " " + nick + ": " + message + System.lineSeparator());
+                        writer.flush();
                     }
+                    writer.close();
             } catch(Exception e) {
-                e.printStackTrace();
-            }
+                System.out.println(nick + " disconnected.");
+            } 
 
         }
 
