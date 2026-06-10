@@ -90,6 +90,7 @@ public class Server implements Runnable{
                     writer.close();
             } catch(Exception e) {
                 System.out.println(nick + " disconnected.");
+                broadcast(nick + " has left the chat");
             } 
 
         }
