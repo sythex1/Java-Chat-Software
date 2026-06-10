@@ -1,0 +1,44 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+--no-fonts
+-encoding
+'UTF-8'
+-protected
+-source
+'17'
+-sourcepath
+'C:/Users/tomke/Documents/Workspace/Java-Chat-Software/chat-project/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2026. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/tomke/Documents/Workspace/Java-Chat-Software/chat-project/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'chat-project 1.0 API'
+-use
+-version
+-windowtitle
+'chat-project 1.0 API'
+com.chatsoft
+com.servsoft
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\src\main\java = 1780793383599
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\allclasses-index.html = 1781062717263
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\allpackages-index.html = 1781062717267
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\element-list = 1781062717165
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\help-doc.html = 1781062717300
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\index-all.html = 1781062717288
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\index.html = 1781062717240
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\member-search-index.js = 1781062717275
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\module-search-index.js = 1781062717270
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\overview-summary.html = 1781062717294
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\overview-tree.html = 1781062717234
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\package-search-index.js = 1781062717272
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\search.html = 1781062717291
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\tag-search-index.js = 1781062717277
+C:\Users\tomke\Documents\Workspace\Java-Chat-Software\chat-project\target\reports\apidocs\type-search-index.js = 1781062717273
