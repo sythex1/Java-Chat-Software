@@ -1,6 +1,6 @@
 Hello, this is my first attempt at making a chat room, with a seperate server and client app, all in Java.
 
-This is my project has been made using Maven, so to build the project, install maven (https://maven.apache.org/) use the command "mvn package". You should find the .jar file created in Java-Chat-Software/chat-project/target. A build has already been created, so you would only want to do this if you've made your own changes. The chat application is also set to look for localhost, so to look for a server on a different device you will need to change what IP it looks for in the code and re-build.
+This is my project has been made using Maven, so to build the project, install maven (https://maven.apache.org/) use the command "mvn package". You should find the .jar file created in Java-Chat-Software/chat-project/target. A build has already been created, so you would only want to do this if you've made your own changes.
 
 once the server application is ran, a server status webpage should be created. this is generated in localhost and the port number by default is 8080, so to access it just type "http://localhost:8080/" into the URL bar.
 
