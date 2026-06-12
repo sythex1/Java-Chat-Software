@@ -9,6 +9,8 @@ to run the java build, download the zip file and extract the contents into a fol
 "java -cp .\target\chat-project-1.0.jar com.servsoft.Server" will run the server application.
 "java -cp .\target\chat-project-1.0.jar com.chatsoft.Chat" will run the chat application.
 
+once done, just type in the address and port of the chosen server and you will connect. if nothing is entered, the default value will be assumed. for address this is "127.0.0.1" (localhost) and the port is "2211".
+
 
 Current features
 
@@ -19,10 +21,12 @@ Server Application (using classes "Server" and "ConnectionHandler"):
 •	Gives each message a time stamp detailing what day and time the message was sent
 •	Can log all chat messages into a .json file
 •	Can establish a http server for a server status and information webpage (WebServer class)
-•	Can display server status information such as the port number, if the chat server is online and how many users are currently chatting (DefaultHandler class)
+•	Can display server status information such as the port number, if the chat server is online, how many users are currently chatting and who is currently online (DefaultHandler class)
 
 Chat Application (using classes "Chat" and "InputHandler"):
 •	Users can join a server and choose which nickname they would like to use during the session
+•	Users can input an address and port to connect to any chosen server that is currently running
+•	Users can leave the input blank for the address and port to use default values
 •	Users can send and receive messages from other users via the server
 •	Users can receive messages while typing/idle
 
