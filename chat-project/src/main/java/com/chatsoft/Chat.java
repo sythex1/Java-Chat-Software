@@ -18,7 +18,9 @@ public class Chat implements Runnable {
 
     /**
      * this method is whats responsible for searching for servers and connecting once one that matches the port number and IP address is found. 
-     * IP address is set to "127.0.0.1" for localhost by default, and should be changed if someone wishes to connect to a server on a seperate device.
+     * the user enters an address and port. if it matches the details of a running server, it will connect. if not, the application ends. 
+     * if address or port is left empty, the default values will be assumed.
+     * IP address is set to "127.0.0.1" for localhost and port is set to 2211 by default, and should be changed if someone wishes to change the default connections.
      * the "out" variable is responsible for sending out the messages typed to the server, while the "in" variable is responsible for recieving messages the server sent.
      * the input handler is responsible for listening for keyboard input by the client. this is then sent to a seperate thread, allowing the app to listen for incoming messages while the user is still typing.
      * the "inMessage" is whats responsible for actually displaying the messages recieved from the server in the users console.
@@ -26,7 +28,27 @@ public class Chat implements Runnable {
     @Override
     public void run() {
         try {
-            Socket client = new Socket("127.0.0.1", 2211);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("Please enter address (leave empty for localhost): ");
+            String address = reader.readLine();
+
+            if(address.isBlank()) {
+                address = "127.0.0.1";
+            }
+
+            System.out.print("Please enter port (leave empty for default): ");
+            String submittedPort = reader.readLine();
+            int port; 
+
+            if(submittedPort.isBlank()) {
+                port = 2211;
+            } else {
+                port = Integer.parseInt(submittedPort);
+            }
+
+
+            
+            Socket client = new Socket(address, port);
 
             out = new PrintWriter(client.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -41,7 +63,7 @@ public class Chat implements Runnable {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error: couldn't establish connection.");
         }
     }
 

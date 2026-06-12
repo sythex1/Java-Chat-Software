@@ -27,6 +27,7 @@ public class Server implements Runnable{
 
     private static final int chatPort = 2211;
     private static ArrayList<ConnectionHandler> connections;
+    private static ArrayList<String> onlineNick = new ArrayList<>();
     private ServerSocket server;
     private ExecutorService pool;
     private static boolean isOnline = false;
@@ -83,7 +84,7 @@ public class Server implements Runnable{
 
 /**
  * This where the contents of the server status page is handled.
- * information like if the chat server is online, how many people are connected and what the chat server's port is.
+ * information like if the chat server is online, how many people are connected and their nicknames and what the chat server's port is.
  */
     public static class DefaultHandler implements HttpHandler{
 
@@ -100,7 +101,12 @@ public class Server implements Runnable{
             } else {
             sb.append("Online: False<br>");
             }
-            sb.append("Users Online: " + connections.size());
+            sb.append("Users Online: " + connections.size() + "<br>");
+            sb.append("<h2>Currently Connected Users:</h2>");
+            for (String nick : onlineNick) {
+                sb.append("<li>" + nick + "</li>");
+
+            }
             sb.append("</body></html>");
 
             byte[] responseBytes = sb.toString().getBytes("UTF-8");
@@ -175,6 +181,7 @@ public class Server implements Runnable{
          * formatter: formats the date and time into a set pattern. in this case its "dd-mm-yyyy" for the day, and "HH:mm:ss" for the time.
          * time: stores the finalised, formatted date and time.
          * nick: stores the nickname the user inputs.
+         * onlineNick: stores the nickname selected to be used in the webpage, to display currently online users
          * the exception is triggered when a client leaves. not only does it broadcast when someone leaves to other users but also makes a note in the server itself.
          */
         public void run() {
@@ -185,6 +192,7 @@ public class Server implements Runnable{
                 out.println("Welcome to the chat room, please enter a nickname: ");
                 /**describe nick variable here */
                 nick = in.readLine();
+                onlineNick.add(nick);
                 System.out.println(nick + " connected!");
                 broadcast(nick + " joined the chat!");
                 String message;
@@ -200,6 +208,7 @@ public class Server implements Runnable{
             } catch(Exception e) {
                 System.out.println(nick + " disconnected.");
                 broadcast(nick + " has left the chat");
+                onlineNick.remove(nick);
             } 
 
         }
